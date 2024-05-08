@@ -1,0 +1,69 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.matheuspierro'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'com.amazonaws:aws-java-sdk:1.12.231'
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task deployDeployment(type: Exec) {
+	workingDir "$projectDir/src/main/kubernetes"
+	commandLine 'kubectl', 'apply', '-f', 'deployment.yaml'
+	doFirst {
+		println 'Deploying Deployment...'
+	}
+	doLast {
+		println 'Deployment applied.'
+	}
+}
+
+task deployService(type: Exec) {
+	workingDir "$projectDir/src/main/kubernetes"
+	commandLine 'kubectl', 'apply', '-f', 'service.yaml'
+	doFirst {
+		println 'Deploying Service...'
+	}
+	doLast {
+		println 'Service applied.'
+	}
+}
+
+task deployIngress(type: Exec) {
+	workingDir "$projectDir/src/main/kubernetes"
+	commandLine 'kubectl', 'apply', '-f', 'ingress.yaml'
+	doFirst {
+		println 'Deploying Ingress...'
+	}
+	doLast {
+		println 'Ingress applied.'
+	}
+}
+
+task deployAll(dependsOn: ['deployDeployment', 'deployService', 'deployIngress']) {
+	doFirst {
+		println 'Deploying all Kubernetes configurations...'
+	}
+	doLast {
+		println 'All configurations deployed.'
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
