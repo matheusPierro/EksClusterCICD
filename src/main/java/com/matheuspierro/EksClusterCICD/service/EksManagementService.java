@@ -1,19 +1,17 @@
 package com.matheuspierro.EksClusterCICD.service;
 
 import com.amazonaws.services.eks.AmazonEKS;
-import com.amazonaws.services.eks.AmazonEKSClientBuilder;
 import com.amazonaws.services.eks.model.*;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class EksManagementService {
 
-    public String createCluster(String clusterName, String roleArn, String subnetIds, String securityGroupIds) {
-        AmazonEKS eksClient = AmazonEKSClientBuilder.standard()
-                .withRegion("us-west-2") // Configurar conforme necessário
-                .build();
+    @Autowired
+    private AmazonEKS eksClient;
 
+    public String createCluster(String clusterName, String roleArn, String subnetIds, String securityGroupIds) {
         CreateClusterRequest request = new CreateClusterRequest()
                 .withName(clusterName)
                 .withRoleArn(roleArn)

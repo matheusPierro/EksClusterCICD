@@ -16,9 +16,14 @@ repositories {
 }
 
 dependencies {
+	//AWS
 	implementation 'com.amazonaws:aws-java-sdk:1.12.231'
-	implementation 'software.amazon.awssdk:eks'
+	implementation 'software.amazon.awssdk:eks:2.25.55'
 
+	//.ENV
+	implementation 'io.github.cdimascio:java-dotenv:5.2.2'
+
+	//Spring
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

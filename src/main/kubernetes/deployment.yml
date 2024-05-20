@@ -16,4 +16,4 @@ spec:
         - name: minha-aplicacao
           image: minha-imagem:tag
           ports:
-            - containerPort: 8080
+            - containerPort: 9091
