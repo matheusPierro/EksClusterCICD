@@ -15,3 +15,4 @@ RUN java -jar /opt/jenkins-plugin-manager.jar --war /usr/share/jenkins/jenkins.w
 USER jenkins
 
 # docker run -p 8080:8080 -p 50000:50000 -v //var/run/docker.sock:/var/run/docker.sock -v C:/jenkins_home:/var/jenkins_home --name jenkins meu-jenkins
+
